@@ -1,0 +1,18 @@
+plugins {
+    id 'java-library'
+}
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
+    testCompile('org.assertj:assertj-core:3.9.1')
+}
+
+test {
+    useJUnitPlatform()
+}
