@@ -1,4 +1,4 @@
-package com.github.wbluke.jenkinsfetcher.job;
+package com.wbluke.fetcher.job;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +9,7 @@ import java.util.List;
 @ToString
 @Getter
 @NoArgsConstructor
-public class JobInfo {
+public class JobItem {
 
     private String description;
     private String displayName;

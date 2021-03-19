@@ -1,4 +1,4 @@
-package com.github.wbluke.jenkinsfetcher.job;
+package com.wbluke.fetcher.job;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

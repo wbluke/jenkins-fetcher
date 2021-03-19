@@ -1,6 +1,6 @@
-package com.github.wbluke.jenkinsfetcher;
+package com.wbluke.fetcher;
 
-import com.github.wbluke.jenkinsfetcher.job.JobInfo;
+import com.wbluke.fetcher.job.JobItem;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -8,14 +8,13 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Base64;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import static org.springframework.http.HttpMethod.GET;
 
 @Slf4j
-public class JenkinsFetcher {
+public class JenkinsJobFetcher {
 
     private ExecutorService executorService = Executors.newFixedThreadPool(10);
 
@@ -23,22 +22,18 @@ public class JenkinsFetcher {
     private String token;
     private RestTemplate restTemplate = new RestTemplate();
 
-    public JenkinsFetcher(Executor executor) {
-        // TODO: 2021/03/18
-    }
-
-    public JenkinsFetcher(String api, String token) {
+    public JenkinsJobFetcher(String api, String token) {
         this.api = api;
         this.token = token;
     }
 
-    public JobInfo fetchJob(String jobName) {
-        CompletableFuture<JobInfo> completableFuture = CompletableFuture.supplyAsync(() -> {
+    public JobItem fetchJob(String jobName) {
+        CompletableFuture<JobItem> completableFuture = CompletableFuture.supplyAsync(() -> {
             String requestUrl = templateUrl(jobName) + "/api/json";
             log.info("requestUrl = " + requestUrl);
 
             return restTemplate
-                    .exchange(requestUrl, GET, new HttpEntity<>("", createAuthHeaders()), JobInfo.class)
+                    .exchange(requestUrl, GET, new HttpEntity<>("", createAuthHeaders()), JobItem.class)
                     .getBody();
         }, executorService);
 
